@@ -16,6 +16,7 @@ import {
   MeshReflectorMaterial,
   Html,
   PerspectiveCamera,
+  DeviceOrientationControls,
 } from "@react-three/drei";
 
 import { useControls } from "leva";
@@ -123,6 +124,7 @@ function App() {
             <N8AO />
           </EffectComposer> */}
           <Env />
+          <DeviceOrientationControls />
         </Canvas>
       </div>
     </div>
