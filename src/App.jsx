@@ -56,22 +56,28 @@ function App() {
     return <Environment preset={preset} background blur={blur} />;
   }
 
-  function Camera(){
+  function Camera() {
     const ref = useRef();
-
+  
     useEffect(() => {
-      ref.current.updateProjectionMatrix();
-      window.addEventListener("deviceorientation", (e) => {
-        ref.current.rotation.y = e.gamma * 0.1;
-        ref.current.rotation.x = e.beta * 0.1;
-        }
-        );
-
+      const handleDeviceOrientation = (e) => {
+        // Normalisez les valeurs d'orientation ici si nécessaire
+        ref.current.rotation.y = e.gamma / 90; // divisez par 90 pour normaliser à 1
+        ref.current.rotation.x = e.beta / 180; // divisez par 180 pour normaliser à 1
+      };
+  
+      window.addEventListener("deviceorientation", handleDeviceOrientation);
+  
+      // Assurez-vous de supprimer l'écouteur d'événements lorsque le composant est démonté
+      return () => {
+        window.removeEventListener("deviceorientation", handleDeviceOrientation);
+      };
     }, []);
-    return(
-      <PerspectiveCamera ref={ref} makeDefault position={[0, 2, 40]} fov={90} />
-    )
+  
+    // Vous n'avez pas besoin d'appeler updateProjectionMatrix ici à moins que fov ou d'autres propriétés ne changent
+    return <PerspectiveCamera ref={ref} makeDefault position={[0, 2, 40]} fov={90} />;
   }
+  
 
   let yearStart = 2011;
   return (
