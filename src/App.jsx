@@ -75,7 +75,7 @@ function App() {
     }, []);
   
     // Vous n'avez pas besoin d'appeler updateProjectionMatrix ici à moins que fov ou d'autres propriétés ne changent
-    return <PerspectiveCamera ref={ref} makeDefault position={[0, 2, 40]} fov={90} />;
+    return <PerspectiveCamera ref={ref} makeDefault near={0.1} far={2000} position={[0, 2, 40]} fov={90} />;
   }
   
 
