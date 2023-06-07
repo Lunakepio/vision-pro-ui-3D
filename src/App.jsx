@@ -64,9 +64,8 @@ function App() {
       const handleDeviceOrientation = (e) => {
         // Normalisez les valeurs d'orientation ici si nécessaire
         // ref.current.rotation.y = e.gamma / 90; // divisez par 90 pour normaliser à 1
-        ref.current.rotation.y = e.beta / 180; // divisez par 180 pour normaliser à 1
-        ref.current.position.x = Math.sin((e.gamma / 90) * 10) 
-        ref.current.position.z = 10 + Math.cos((e.gamma / 90) * 10);
+
+        ref.current.position.y = 2 + (e.beta / 90) * 5 ;
         ref.current.lookAt(0, 0, 0);
       };
   
@@ -123,7 +122,7 @@ function App() {
               <button>All Photos</button>
             </div>
           </Html> */}
-          <OrbitControls enableZoom={false} />
+          {/* <OrbitControls enableZoom={false} /> */}
           <EffectComposer>
             
             <SMAA />
