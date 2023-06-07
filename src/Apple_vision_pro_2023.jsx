@@ -18,9 +18,9 @@ export function ModelTwo(props) {
 
     const t = state.clock.getElapsedTime()
     ref.current.rotation.x = Math.cos(t / 4) / 8
-    ref.current.rotation.y = -Math.PI / 2 + Math.sin(t / 4) / 8
+    ref.current.rotation.y += 0.01;
     ref.current.rotation.z = (1 + Math.sin(t / 1.5)) / 20
-    ref.current.position.y = ((3 + Math.sin(t / 1.5)) / 10 ) * 0.5;
+    ref.current.position.y = ((3 + Math.sin(t / 1.5)) / 10 ) * 0.3;
     meshRefs.forEach((meshRef, i) => {
       const mesh = meshRef.current;
       const node = nodes[nodeKeys[i]];
