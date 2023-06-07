@@ -22,7 +22,7 @@ import {
 import { useControls } from "leva";
 import { ModelTwo } from "./Apple_vision_pro_2023";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { EffectComposer, N8AO, SSR, Bloom, LUT } from "@react-three/postprocessing";
+import { EffectComposer, N8AO, SSR, Bloom, LUT, SMAA } from "@react-three/postprocessing";
 import * as THREE from "three";
 import "./globals.scss";
 
@@ -64,7 +64,7 @@ function App() {
       const handleDeviceOrientation = (e) => {
         // Normalisez les valeurs d'orientation ici si nécessaire
         // ref.current.rotation.y = e.gamma / 90; // divisez par 90 pour normaliser à 1
-        // ref.current.rotation.x = e.beta / 180; // divisez par 180 pour normaliser à 1
+        ref.current.rotation.x = e.beta / 180; // divisez par 180 pour normaliser à 1
         ref.current.position.x = Math.sin(e.gamma / 90) * 10;
         ref.current.position.z = Math.cos(e.gamma / 90) * 10;
       };
@@ -84,7 +84,7 @@ function App() {
 
   let yearStart = 2011;
 
-  const texture = useLoader(LUTCubeLoader, "./quiet.cube");
+  const texture = useLoader(LUTCubeLoader, "./Titanium_Dream_03.cube");
   return (
     <div className="App" style={{ width: "100%", height: "100vh" }}>
       <div className="" style={{ width: "100vw", height: "100vh" }}>
@@ -123,11 +123,11 @@ function App() {
             </div>
           </Html> */}
           <OrbitControls enableZoom={false} />
-          {/* <EffectComposer>
+          <EffectComposer>
             
-
+            <SMAA />
             <LUT lut={texture} />
-          </EffectComposer> */}
+          </EffectComposer>
           <Env />
           <DeviceOrientationControls />
         </Canvas>
