@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useMemo } from 'react'
 import { useGLTF, useScroll } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 
 export function ModelTwo(props) {
   const { nodes, materials } = useGLTF('/apple_vision_pro_2023.glb')
@@ -35,7 +36,7 @@ export function ModelTwo(props) {
         {nodeKeys.map((nodeKey, i) => {
           const node = nodes[nodeKey];
           return (
-            <mesh castShadow receiveShadow ref={meshRefs[i]} geometry={node.geometry} material={node.material} />
+            <mesh ref={meshRefs[i]} geometry={node.geometry} material={node.material} />
           );
         })}
       </group>

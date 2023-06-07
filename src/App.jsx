@@ -1,6 +1,6 @@
 import { Canvas, useLoader } from "@react-three/fiber";
 import React, { useEffect, useRef, useState, useTransition } from "react";
-
+import { LUTCubeLoader, LUTEffect } from 'postprocessing'
 import { Model } from "./Apple_vision_pro";
 import {
   AccumulativeShadows,
@@ -22,7 +22,7 @@ import {
 import { useControls } from "leva";
 import { ModelTwo } from "./Apple_vision_pro_2023";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { EffectComposer, N8AO, SSR, Bloom } from "@react-three/postprocessing";
+import { EffectComposer, N8AO, SSR, Bloom, LUT } from "@react-three/postprocessing";
 import * as THREE from "three";
 import "./globals.scss";
 
@@ -33,7 +33,7 @@ function App() {
     // For instance by showing a message
     const [inTransition, startTransition] = useTransition();
     const { blur } = useControls({
-      blur: { value: 0, min: 0, max: 1 },
+      blur: { value: 50, min: 0, max: 1 },
       preset: {
         value: preset,
         options: [
@@ -63,8 +63,10 @@ function App() {
     useEffect(() => {
       const handleDeviceOrientation = (e) => {
         // Normalisez les valeurs d'orientation ici si nécessaire
-        ref.current.rotation.y = e.gamma / 90; // divisez par 90 pour normaliser à 1
-        ref.current.rotation.x = e.beta / 180; // divisez par 180 pour normaliser à 1
+        // ref.current.rotation.y = e.gamma / 90; // divisez par 90 pour normaliser à 1
+        // ref.current.rotation.x = e.beta / 180; // divisez par 180 pour normaliser à 1
+        ref.current.position.x = Math.sin(e.gamma / 90) * 10;
+        ref.current.position.z = Math.cos(e.gamma / 90) * 10;
       };
   
       window.addEventListener("deviceorientation", handleDeviceOrientation);
@@ -76,24 +78,26 @@ function App() {
     }, []);
   
     // Vous n'avez pas besoin d'appeler updateProjectionMatrix ici à moins que fov ou d'autres propriétés ne changent
-    return <PerspectiveCamera ref={ref} makeDefault near={0.1} far={2000} position={[0, 2, 40]} fov={90} />;
+    return <PerspectiveCamera ref={ref} makeDefault near={0.1} far={2000} position={[0, 2,10]} fov={45} />;
   }
   
 
   let yearStart = 2011;
+
+  const texture = useLoader(LUTCubeLoader, "./quiet.cube");
   return (
     <div className="App" style={{ width: "100%", height: "100vh" }}>
       <div className="" style={{ width: "100vw", height: "100vh" }}>
         <Canvas
         >
-          {/* 
+          
             <ScrollControls pages={3}>
 
               <ModelTwo position={[0, 0.25, 0]} scale={10}/>
 
-            </ScrollControls> */}
+            </ScrollControls>
             <Camera />
-          <Html transform>
+          {/* <Html transform>
             <div className="photos">
               {[...Array(12)].map((e, i) => {
                 yearStart++;
@@ -117,11 +121,12 @@ function App() {
               <button>Days</button>
               <button>All Photos</button>
             </div>
-          </Html>
-          {/* <OrbitControls enableZoom={false} /> */}
+          </Html> */}
+          <OrbitControls enableZoom={false} />
           {/* <EffectComposer>
-            <SSR />
-            <N8AO />
+            
+
+            <LUT lut={texture} />
           </EffectComposer> */}
           <Env />
           <DeviceOrientationControls />
