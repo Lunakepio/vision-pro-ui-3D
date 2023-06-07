@@ -122,7 +122,7 @@ function App() {
               <button>All Photos</button>
             </div>
           </Html> */}
-          <OrbitControls enableZoom={false} />
+          {/* <OrbitControls enableZoom={false} /> */}
           <EffectComposer>
             
             <SMAA />
