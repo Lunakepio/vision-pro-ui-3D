@@ -107,7 +107,7 @@ function App() {
 
           {/* <OrbitControls enableZoom={false} /> */}
           <FaceLandmarker>
-            <FaceControls eyes ref={face} offsetScalar={15} />
+            <FaceControls ref={face} offsetScalar={15} />
             <Env />
             <group position={[0,0, -20]}>
             <Html transform>
