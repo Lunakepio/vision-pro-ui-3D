@@ -1,19 +1,9 @@
 import { Canvas, useLoader } from "@react-three/fiber";
 import React, { useEffect, useRef, useState, useTransition } from "react";
-import { LUTCubeLoader, LUTEffect } from "postprocessing";
-import { Model } from "./Apple_vision_pro";
 import {
-  AccumulativeShadows,
-  RandomizedLight,
-  Center,
+
   Environment,
-  OrbitControls,
-  Stage,
-  useGLTF,
-  Float,
-  ScrollControls,
-  PresentationControls,
-  MeshReflectorMaterial,
+
   Html,
   PerspectiveCamera,
   DeviceOrientationControls,
@@ -22,18 +12,7 @@ import {
 } from "@react-three/drei";
 
 import { useControls } from "leva";
-import { ModelTwo } from "./Apple_vision_pro_2023";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import {
-  EffectComposer,
-  N8AO,
-  SSR,
-  Bloom,
-  LUT,
-  SMAA,
-  Autofocus,
-} from "@react-three/postprocessing";
-import * as THREE from "three";
+
 import "./globals.scss";
 import { SpatialUI } from "./SpatialUI";
 import { Player } from "./Player";
@@ -94,7 +73,6 @@ function App() {
       console.log(face.current.faceMeshApiRef)
     }
   }, [face])
-  const texture = useLoader(LUTCubeLoader, "./Titanium_Dream_03.cube");
   return (
     <div className="App" style={{ width: "100%", height: "100vh" }}>
       <div className="" style={{ width: "100vw", height: "100vh" }}>
